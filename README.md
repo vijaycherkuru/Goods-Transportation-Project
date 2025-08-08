@@ -1,7 +1,7 @@
-# 🚚 Goods Transportation Project (DispatchTrack)
+#  Goods Transportation Project (DispatchTrack)
 
 A full-stack goods transportation and dispatch tracking system built with **Angular** (frontend) and **Java Spring Boot** (backend).  
-This project enables users to create delivery rides, request goods transportation, and manage logistics efficiently.
+This project enables users to create delivery rides, request goods transportation,Track the bookings with realtime notifications and manages logistics efficiently.
 
 ## 📌 Features
 
