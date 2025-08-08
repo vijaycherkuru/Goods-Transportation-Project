@@ -1,0 +1,193 @@
+<div class="component-container">
+  <!-- Main Content -->
+  <div class="component-content">
+    <div class="create-ride-layout">
+      <!-- Map Section -->
+      <div class="map-section">
+        <div class="map-header">
+          <h2><i class="bi bi-geo-alt-fill"></i>Route Map</h2>
+          <p>Visualize your route on the map</p>
+        </div>
+        <div class="map-container" #mapContainer></div>
+      </div>
+
+      <!-- Form Section -->
+      <div class="form-section">
+        <div class="form-container">
+          <div class="form-header">
+            <h2><i class="bi bi-car-front-fill"></i>Create a Ride</h2>
+            <p>Set up your transportation route and make it available for booking</p>
+          </div>
+
+          <form [formGroup]="rideForm" (ngSubmit)="onSubmit()" novalidate class="create-ride-form">
+            <!-- Route Information -->
+            <div class="form-group">
+              
+              <div class="form-field">
+                <label class="field-label">
+                  <i class="bi bi-geo-alt-fill"></i>From Location
+                </label>
+                <div class="input-wrapper">
+                  <i class="bi bi-geo-alt-fill input-icon"></i>
+                  <input 
+                    type="text" 
+                    class="component-input" 
+                    formControlName="from" 
+                    placeholder="Enter pickup location"
+                    (input)="onFromInput($event)"
+                    (blur)="hideSuggestions()"
+                  >
+                  <div *ngIf="showFromSuggestions && fromSuggestions.length > 0" class="suggestions-dropdown">
+                    <div 
+                      *ngFor="let suggestion of fromSuggestions" 
+                      class="suggestion-item"
+                      (click)="selectFromLocation(suggestion)"
+                    >
+                      <i class="bi bi-geo-alt-fill"></i>
+                      {{ suggestion.display_name }}
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f['from'].errors" class="form-error">
+                  <span *ngIf="f['from'].errors['required']">From location is required.</span>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label class="field-label">
+                  <i class="bi bi-geo-alt-fill"></i>To Location
+                </label>
+                <div class="input-wrapper">
+                  <i class="bi bi-geo-alt-fill input-icon"></i>
+                  <input 
+                    type="text" 
+                    class="component-input" 
+                    formControlName="to" 
+                    placeholder="Enter destination"
+                    (input)="onToInput($event)"
+                    (blur)="hideSuggestions()"
+                  >
+                  <div *ngIf="showToSuggestions && toSuggestions.length > 0" class="suggestions-dropdown">
+                    <div 
+                      *ngFor="let suggestion of toSuggestions" 
+                      class="suggestion-item"
+                      (click)="selectToLocation(suggestion)"
+                    >
+                      <i class="bi bi-geo-alt-fill"></i>
+                      {{ suggestion.display_name }}
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f['to'].errors" class="form-error">
+                  <span *ngIf="f['to'].errors['required']">To location is required.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Schedule and Vehicle Details -->
+            <div class="form-group">
+              
+              <div class="form-row">
+                <div class="form-field">
+                  <label class="field-label">
+                    <i class="bi bi-calendar-date-fill"></i>Date
+                  </label>
+                  <input type="date" class="component-input" formControlName="date">
+                  <div *ngIf="submitted && f['date'].errors" class="form-error">
+                    <span *ngIf="f['date'].errors['required']">Date is required.</span>
+                  </div>
+                </div>
+                
+                <div class="form-field">
+                  <label class="field-label">
+                    <i class="bi bi-clock-fill"></i>Time
+                  </label>
+                  <select class="component-input" formControlName="time">
+                    <option value="" disabled selected>Select hour</option>
+                    <option *ngFor="let hour of hours" [value]="hour">{{ hour }}:00</option>
+                  </select>
+                  <div *ngIf="submitted && f['time'].errors" class="form-error">
+                    <span *ngIf="f['time'].errors['required']">Time is required.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-field">
+                  <label class="field-label">
+                    <i class="bi bi-truck"></i>Vehicle Type
+                  </label>
+                  <select class="component-input" formControlName="vehicleType">
+                    <option value="" disabled selected>Select vehicle type</option>
+                    <option *ngFor="let type of vehicleTypes" [value]="type">{{ type }}</option>
+                  </select>
+                  <div *ngIf="submitted && f['vehicleType'].errors" class="form-error">
+                    <span *ngIf="f['vehicleType'].errors['required']">Vehicle type is required.</span>
+                  </div>
+                </div>
+                
+                <div class="form-field">
+                  <label class="field-label">
+                    <i class="bi bi-box-seam-fill"></i>Luggage Space
+                  </label>
+                  <select class="component-input" formControlName="luggageSpace">
+                    <option value="" disabled selected>Select luggage space</option>
+                    <option value="small">0-249 ltrs (Small)</option>
+                    <option value="medium">250-499 ltrs (Medium)</option>
+                    <option value="large">500-750 ltrs (Large)</option>
+                  </select>
+                  <div *ngIf="submitted && f['luggageSpace'].errors" class="form-error">
+                    <span *ngIf="f['luggageSpace'].errors['required']">Luggage space is required.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Driver Information -->
+            <div class="form-group">
+              
+              <div class="form-field">
+                <label class="field-label">
+                  <i class="bi bi-card-text"></i>Driving License Number
+                </label>
+                <input type="text" class="component-input" formControlName="licenseNumber" placeholder="e.g. AP01 12345678901">
+                <div *ngIf="submitted && f['licenseNumber'].errors" class="form-error">
+                  <span *ngIf="f['licenseNumber'].errors['required']">License number is required.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-actions">
+              <button type="submit" class="component-button-primary" [disabled]="showLoading">
+                <span *ngIf="showLoading" class="loading-spinner"></span>
+                <i *ngIf="!showLoading" class="bi bi-truck-flatbed-fill"></i>
+                {{ showLoading ? 'Creating Ride...' : 'Create Ride' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div *ngIf="showSuccessModal" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-body">
+      <div class="success-icon">
+        <i class="bi bi-check-circle-fill"></i>
+      </div>
+      <h5>Ride Created Successfully!</h5>
+      <p>Your ride has been created and is now available for booking.</p>
+      <button class="component-button-primary" (click)="closeSuccessModal()">Continue</button>
+    </div>
+  </div>
+</div>
+
+<!-- Loading Overlay -->
+<div *ngIf="showLoading" class="loading-overlay">
+  <div class="loading-spinner"></div>
+  <p>Creating your ride...</p>
+</div> 

@@ -1,0 +1,233 @@
+.your-rides-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(60,60,100,0.10);
+  padding: 2rem 2.5rem 2rem 2.5rem;
+}
+.table {
+  margin-bottom: 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.table th, .table td {
+  vertical-align: middle;
+}
+
+.ride-card {
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+.route-info {
+  .route-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  
+  .route-line {
+    width: 2px;
+    height: 20px;
+    background: linear-gradient(to bottom, #28a745, #dc3545);
+    margin-left: 5px;
+  }
+}
+
+.card-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 0.4em 0.8em;
+}
+
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  
+  &.btn-outline-primary:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  &.btn-outline-danger:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+}
+
+// Custom Popup Styles
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+  animation: fadeIn 0.3s ease;
+}
+
+.popup-modal {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow: hidden;
+  animation: slideIn 0.3s ease;
+}
+
+.popup-header {
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  &.popup-success {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border-bottom-color: #c3e6cb;
+  }
+  
+  &.popup-error {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    border-bottom-color: #f5c6cb;
+  }
+  
+  &.popup-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    border-bottom-color: #ffeaa7;
+  }
+}
+
+.popup-title {
+  font-weight: 600;
+  color: #2c3e50;
+  
+  .popup-success & {
+    color: #155724;
+  }
+  
+  .popup-error & {
+    color: #721c24;
+  }
+  
+  .popup-warning & {
+    color: #856404;
+  }
+}
+
+.popup-body {
+  padding: 1.5rem;
+}
+
+.popup-message {
+  margin: 0;
+  color: #6c757d;
+  line-height: 1.6;
+}
+
+.popup-footer {
+  padding: 1rem 1.5rem 1.5rem;
+  border-top: 1px solid #dee2e6;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .ride-card {
+    margin-bottom: 1rem;
+  }
+  
+  .route-info {
+    .route-line {
+      height: 15px;
+    }
+  }
+  
+  .popup-modal {
+    width: 95%;
+    margin: 1rem;
+  }
+  
+  .popup-header,
+  .popup-body,
+  .popup-footer {
+    padding: 1rem;
+  }
+}
+
+// Animation for loading state
+.spinner-grow {
+  animation: spinner-grow 1s ease-in-out infinite;
+}
+
+@keyframes spinner-grow {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+} 

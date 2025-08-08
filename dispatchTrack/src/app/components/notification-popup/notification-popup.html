@@ -1,0 +1,76 @@
+<div class="notification-container">
+  <!-- Notification Bell with Badge -->
+  <div class="notification-trigger" (click)="toggleNotifications()">
+    <i class="bi bi-bell-fill fs-5"></i>
+    <span *ngIf="unreadCount > 0" class="notification-badge">{{ unreadCount > 99 ? '99+' : unreadCount }}</span>
+    <i [class]="getConnectionStatusIcon()" 
+       [ngClass]="getConnectionStatusColor()" 
+       class="connection-indicator"
+       title="WebSocket {{ connectionStatus }}"></i>
+  </div>
+
+  <!-- Notification Dropdown -->
+  <div *ngIf="showNotifications" class="notification-dropdown">
+    <div class="notification-header">
+      <h6 class="mb-0">Notifications</h6>
+      <div class="notification-actions">
+        <button class="btn btn-sm btn-outline-primary me-2" (click)="testConnection()">
+          <i class="bi bi-wifi"></i> Test Connection
+        </button>
+        <button class="btn btn-sm btn-outline-success me-2" (click)="testNotification()">
+          <i class="bi bi-bell"></i> Test Notification
+        </button>
+        <button class="btn btn-sm btn-outline-info me-2" (click)="requestNotificationPermission()">
+          <i class="bi bi-gear"></i> Enable Notifications
+        </button>
+        <button class="btn btn-sm btn-outline-secondary" (click)="clearAllNotifications()">
+          <i class="bi bi-trash"></i> Clear All
+        </button>
+      </div>
+      
+      <div class="notification-debug mt-2">
+        <small class="text-muted">
+          User ID: {{ getCurrentUserId() || 'Not set' }} | 
+          Status: {{ connectionStatus$ | async }}
+        </small>
+      </div>
+    </div>
+
+    <div class="notification-list">
+      <div *ngIf="notifications.length === 0" class="no-notifications">
+        <i class="bi bi-bell-slash text-muted"></i>
+        <p class="text-muted mb-0">No notifications</p>
+      </div>
+
+      <div *ngFor="let notification of notifications" 
+           class="notification-item"
+           [ngClass]="{ 'unread': !notification.read }"
+           (click)="markAsRead(notification)">
+        <div class="notification-icon">
+          <i [class]="getNotificationIcon(notification.type)" 
+             [ngClass]="getNotificationColor(notification.type)"></i>
+        </div>
+        <div class="notification-content">
+          <div class="notification-title">{{ notification.title }}</div>
+          <div class="notification-message">{{ notification.message }}</div>
+          <div class="notification-time">{{ formatTime(notification.timestamp) }}</div>
+        </div>
+        <div *ngIf="!notification.read" class="unread-indicator"></div>
+      </div>
+    </div>
+
+    <div class="notification-footer">
+      <small class="text-muted">
+        <i [class]="getConnectionStatusIcon()" 
+           [ngClass]="getConnectionStatusColor()"></i>
+        {{ connectionStatus }}
+      </small>
+      <button *ngIf="connectionStatus === 'disconnected'"  
+              class="btn btn-sm btn-outline-secondary ms-2" 
+              (click)="testConnection()"
+              title="Test WebSocket connection">
+        <i class="bi bi-arrow-clockwise"></i>
+      </button>
+    </div>
+  </div>
+</div> 

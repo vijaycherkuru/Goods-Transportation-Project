@@ -1,0 +1,212 @@
+<!-- Header -->
+<div class="navbar-wrapper">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm rounded-pill px-4 py-2 d-flex align-items-center justify-content-between">
+    <a class="navbar-brand fw-bold fs-3 text-primary" href="#">
+      <span class="logo-icon me-2"></span> DispatchTrack
+    </a>
+    <ul class="navbar-nav flex-row gap-4 align-items-center">
+      <li class="nav-item"><a class="nav-link fw-semibold" href="#how-it-works">How It Works</a></li>
+      <li class="nav-item"><a class="nav-link fw-semibold" href="#">Blogs</a></li>
+      <li class="nav-item"><a class="nav-link fw-semibold" href="#">About</a></li>
+      <li class="nav-item"><a class="nav-link fw-semibold" href="#">Others</a></li>
+    </ul>
+    <div class="auth-buttons d-flex gap-3 align-items-center">
+      <a class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold" [routerLink]="'/login'">Login</a>
+      <a class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm" [routerLink]="'/sign-up'">Sign Up</a>
+    </div>
+  </nav>
+</div>
+
+<!-- Hero Section -->
+<div class="homepage-hero container-fluid py-5 mt-4 position-relative rounded-4">
+  <div class="row align-items-center justify-content-center">
+    <!-- Left Box -->
+    <div class="col-md-3 d-flex justify-content-center mb-4 mb-md-0">
+      <div class="hero-box from-box d-flex flex-column align-items-center justify-content-center">
+        <img src="/from.png" alt="From You" class="box-img mb-2" />
+      </div>
+    </div>
+    <!-- Center Content -->
+    <div class="col-md-6 text-center">
+      <div class="promo-badge mb-3 mx-auto"> <span class="dot"></span> DispatchTrack will be live soon! 🚀 </div>
+      <h1 class="display-3 fw-bold mb-3">Send your <span class="text-primary">Parcels</span> seamlessly<br>with DispatchTrack.</h1>
+      <p class="lead mb-4">DispatchTrack makes sending packages easier and cheaper than ever before. Just sign up and tell us where you want your package to go.</p>
+      <button class="btn btn-outline-primary rounded-pill px-4 py-2 mb-3 fw-semibold shadow-sm">
+        <span class="me-2">⚡</span>Get up to 60% off on your first order
+      </button>
+      
+    </div>
+    <!-- Right Box -->
+    <div class="col-md-3 d-flex justify-content-center mt-4 mt-md-0">
+      <div class="hero-box to-box d-flex flex-column align-items-center justify-content-center position-relative">
+        <img src="/to.png" alt="To Anywhere" class="box-img mb-2" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Features Section -->
+<section class="homepage-features container my-5">
+  <div class="row mb-4">
+    <div class="col-12 text-center">
+      <h2 class="features-headline fw-bold">
+        Send With <span class="text-primary fst-italic">heart</span><br>
+        Travel with <span class="text-highlight fst-italic">Purpose</span>
+      </h2>
+    </div>
+  </div>
+  <div class="row g-4 justify-content-center">
+    <!-- Live Tracking Card -->
+    <div class="col-md-6">
+      <div class="feature-card live-tracking-card p-4 h-100 d-flex flex-column justify-content-between">
+        <div>
+          <h3 class="fw-bold text-white mb-3">Live Tracking</h3>
+          <p class="text-white fs-5 mb-4">Track your packages in real-time with precise location updates</p>
+          <div class="d-flex align-items-center mb-4">
+            <span class="dot-active me-2"></span>
+            <span class="text-white fw-semibold">Active now</span>
+          </div>
+        </div>
+        <div class="feature-illustration mt-auto">
+          <img src="/3d-view-map.jpg" alt="Live Tracking" class="live-tracking-img" />
+        </div>
+      </div>
+    </div>
+    <!-- KYC Verification Card -->
+    <div class="col-md-6">
+      <div class="feature-card kyc-card p-4 h-100 d-flex flex-column justify-content-between">
+        <div>
+          <h3 class="fw-bold text-dark mb-3">KYC Verification</h3>
+          <p class="text-dark fs-5 mb-4">Secure identity verification for trusted deliveries</p>
+        </div>
+        <div class="feature-illustration mt-auto mb-3">
+          <img src="/kyc.jpg" alt="KYC Verification" class="kyc-img" />
+        </div>
+        <div class="text-dark fw-semibold mt-auto">Verified &amp; Secure</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="how-it-works container my-5">
+  <div class="row mb-5">
+    <div class="col-12 text-center">
+      <h2 class="how-title fw-bold">How DispatchTrack Works</h2>
+      <p class="how-subtitle">Send your parcels across India in three simple steps. Fast, secure, and reliable.</p>
+    </div>
+  </div>
+  <div class="how-steps position-relative timeline-vertical">
+    <div class="timeline-main-line"></div>
+    <!-- Step 1 -->
+    <div class="row align-items-center mb-5 how-step-row">
+      <div class="col-md-5 offset-md-1 order-2 order-md-1">
+        <div class="step-label">STEP 1</div>
+        <h3 class="step-title">Sign Up</h3>
+        <p class="step-desc">Create your account with just your mobile number. Quick, secure, and ready to go in seconds.</p>
+        <div class="step-pills mb-3">
+          <span class="step-pill">Quick Setup</span>
+          <span class="step-pill">Secure</span>
+        </div>
+      </div>
+      <div class="col-md-1 d-flex flex-column align-items-center justify-content-center position-relative order-1 order-md-2">
+        <div class="timeline-icon step1"><i class="bi bi-phone"></i></div>
+      </div>
+      <div class="col-md-5 order-3">
+        <div class="step-visual step1-visual mx-auto">
+          <img src="/signUp.jpg" alt="Sign Up" class="img-fluid" />
+        </div>
+      </div>
+    </div>
+    <!-- Step 2 -->
+    <div class="row align-items-center mb-5 how-step-row flex-md-row-reverse">
+      <div class="col-md-5 offset-md-1 order-2 order-md-3">
+        <div class="step-label">STEP 2</div>
+        <h3 class="step-title">Choose a Traveler</h3>
+        <p class="step-desc">Browse verified travelers heading to your destination and select the perfect match for your parcel.</p>
+        <div class="step-pills mb-3">
+          <span class="step-pill">Verified Travelers</span>
+          <span class="step-pill">Real-time Matching</span>
+        </div>
+      </div>
+      <div class="col-md-1 d-flex flex-column align-items-center justify-content-center position-relative order-1 order-md-2">
+        <div class="timeline-icon step2"><i class="bi bi-people"></i></div>
+      </div>
+      <div class="col-md-5 order-3 order-md-1">
+        <div class="step-visual step2-visual mx-auto">
+          <img src="/verifiedTraveller.png" alt="Choose Traveler" class="img-fluid" />
+        </div>
+      </div>
+    </div>
+    <!-- Step 3 -->
+    <div class="row align-items-center mb-5 how-step-row">
+      <div class="col-md-5 offset-md-1 order-2 order-md-1">
+        <div class="step-label">STEP 3</div>
+        <h3 class="step-title">Send Your Parcel</h3>
+        <p class="step-desc">Hand over your package and track its journey in real-time until it safely reaches its destination.</p>
+        <div class="step-pills mb-3">
+          <span class="step-pill">Live Tracking</span>
+          <span class="step-pill">Instant Updates</span>
+        </div>
+      </div>
+      <div class="col-md-1 d-flex flex-column align-items-center justify-content-center position-relative order-1 order-md-2">
+        <div class="timeline-icon step3"><i class="bi bi-box"></i></div>
+      </div>
+      <div class="col-md-5 order-3">
+        <div class="step-visual step3-visual mx-auto">
+          <img src="/sendParcel.png" alt="Send Parcel" class="img-fluid" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 
+<!-- Footer Section -->
+<footer class="bg-primary text-white pt-5 pb-4 mt-5">
+  <div class="container">
+    <div class="row text-center text-md-start">
+      <!-- Logo & Tagline -->
+      <div class="col-md-3 mb-4">
+        <h3 class="fw-bold">DispatchTrack</h3>
+        <p class="mb-0">Making parcel delivery simple, fast, and reliable for everyone.</p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-md-3 mb-4">
+        <h5 class="fw-bold">Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-white text-decoration-none">About Us</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Careers</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal Links -->
+      <div class="col-md-3 mb-4">
+        <h5 class="fw-bold">Legal</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-white text-decoration-none">Terms & Conditions</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Refund Policy</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="col-md-3 mb-4">
+        <h5 class="fw-bold">Contact</h5>
+        <p>Follow us &#64;dispatchtrack</p>
+        <p>+91-6305835023</p>
+      </div>
+    </div>
+
+    <hr class="border-light">
+
+    <!-- Bottom Row -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <p class="mb-0">© 2025 DispatchTrack. All rights reserved.</p>
+      <div class="social-icons mt-3 mt-md-0">
+        <a href="#" class="text-white fs-5 me-3"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="text-white fs-5"><i class="bi bi-linkedin"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>

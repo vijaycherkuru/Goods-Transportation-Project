@@ -1,0 +1,302 @@
+<div class="navbar-wrapper">
+  <nav
+    class="navbar navbar-expand-lg navbar-light bg-white shadow-sm rounded-pill px-4 py-2 d-flex align-items-center justify-content-between">
+    <a class="navbar-brand fw-bold fs-3 text-primary" href="#">
+      <span class="logo-icon me-2"></span> DispatchTrack
+    </a>
+
+    <div class="auth-buttons d-flex gap-3 align-items-center">
+      <span>Existing user?</span>
+
+      <a class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm">Login</a>
+    </div>
+  </nav>
+</div>
+
+
+<!-- Gradient Background -->
+<!-- <div class="signup-bg position-fixed top-0 start-0 w-100 h-100"></div> -->
+
+<div class="component-container">
+  <!-- Main Content -->
+  <div class="component-content">
+    <div class="signup-form-wrapper">
+      <div class="signup-content">
+        <div class="signup-header">
+          <h2><i class="bi bi-person-plus"></i>Create Your Account</h2>
+          <p>Join DispatchTrack to connect with trusted travelers and send your parcels safely</p>
+        </div>
+
+        <!-- Form Progress Indicator -->
+        <div class="form-progress">
+          <div class="progress-step" [class.active]="formStep >= 1" [class.completed]="formStep > 1">
+            <div class="timeline-icon step1">
+              <i class="bi bi-person"></i>
+            </div>
+            <span class="step-label">Basic Info</span>
+          </div>
+          <div class="progress-line" [class.completed]="formStep > 1"></div>
+          <div class="progress-step" [class.active]="formStep >= 2" [class.completed]="formStep > 2">
+            <div class="timeline-icon step2">
+              <i class="bi bi-shield-check"></i>
+            </div>
+            <span class="step-label">Verification</span>
+          </div>
+          <div class="progress-line" [class.completed]="formStep > 2"></div>
+          <div class="progress-step" [class.active]="formStep >= 3">
+            <div class="timeline-icon step3">
+              <i class="bi bi-check-circle"></i>
+            </div>
+            <span class="step-label">Complete</span>
+          </div>
+        </div>
+
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" autocomplete="off" class="signup-form">
+          <!-- Step 1: Basic Information -->
+          <div class="form-step" [class.active]="formStep >= 1">
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="name">Name</label>
+                <div class="input-wrapper">
+                  <i class="bi bi-person input-icon"></i>
+                  <input id="name" type="text" class="component-input" formControlName="name"
+                    placeholder="Enter your name">
+                  <div class="input-validation" *ngIf="signupForm.get('name')?.valid && signupForm.get('name')?.dirty">
+                    <i class="bi bi-check-circle-fill"></i>
+                  </div>
+                </div>
+                <div
+                  *ngIf="signupForm.get('name')?.invalid && (signupForm.get('name')?.dirty || signupForm.get('name')?.touched)"
+                  class="form-error">
+                  Name is required.
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="age">Age</label>
+                <div class="input-wrapper">
+                  <i class="bi bi-123 input-icon"></i>
+                  <input id="age" type="number" class="component-input" formControlName="age"
+                    placeholder="Enter your age">
+                  <div class="input-validation" *ngIf="signupForm.get('age')?.valid && signupForm.get('age')?.dirty">
+                    <i class="bi bi-check-circle-fill"></i>
+                  </div>
+                </div>
+                <div
+                  *ngIf="signupForm.get('age')?.invalid && (signupForm.get('age')?.dirty || signupForm.get('age')?.touched)"
+                  class="form-error">
+                  <span *ngIf="signupForm.get('age')?.errors?.['required']">Age is required.</span>
+                  <span *ngIf="signupForm.get('age')?.errors?.['min']">Age must be at least 1.</span>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="gender">Gender</label>
+                <div class="input-wrapper">
+                  <i class="bi bi-gender-ambiguous input-icon"></i>
+                  <select id="gender" class="component-input" formControlName="gender">
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                    <option value="OTHER">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="phone">Phone</label>
+                <div class="input-wrapper">
+                  <i class="bi bi-telephone input-icon"></i>
+                  <input id="phone" type="text" class="component-input" formControlName="phone"
+                    placeholder="Enter your phone number">
+                  <div class="input-validation"
+                    *ngIf="signupForm.get('phone')?.valid && signupForm.get('phone')?.dirty">
+                    <i class="bi bi-check-circle-fill"></i>
+                  </div>
+                </div>
+                <div
+                  *ngIf="signupForm.get('phone')?.invalid && (signupForm.get('phone')?.dirty || signupForm.get('phone')?.touched)"
+                  class="form-error">
+                  <span *ngIf="signupForm.get('phone')?.errors?.['required']">Phone is required.</span>
+                  <span *ngIf="signupForm.get('phone')?.errors?.['pattern']">Phone must be 10-15 digits.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Email Verification -->
+          <div class="form-step" [class.active]="formStep >= 2">
+            <div class="form-field">
+              <label for="email">Email</label>
+              <div class="input-wrapper">
+                <i class="bi bi-envelope input-icon"></i>
+                <input id="email" type="email" class="component-input" formControlName="email"
+                  placeholder="Enter your email" [readonly]="otpVerified">
+                <button type="button" class="component-button-primary verify-btn" (click)="verifyEmail()"
+                  [disabled]="loadingVerify || otpVerified">
+                  <span *ngIf="loadingVerify" class="loading-spinner"></span>
+                  <i *ngIf="!loadingVerify && !otpVerified" class="bi bi-send"></i>
+                  <i *ngIf="otpVerified" class="bi bi-check-circle"></i>
+                  {{ otpVerified ? 'Verified' : 'Verify' }}
+                </button>
+              </div>
+              <div
+                *ngIf="signupForm.get('email')?.invalid && (signupForm.get('email')?.dirty || signupForm.get('email')?.touched)"
+                class="form-error">
+                <span *ngIf="signupForm.get('email')?.errors?.['required']">Email is required.</span>
+                <span *ngIf="signupForm.get('email')?.errors?.['email']">Invalid email format.</span>
+              </div>
+              <div *ngIf="otpSentMessage" class="alert alert-success">
+                <i class="bi bi-info-circle"></i>{{ otpSentMessage }}
+              </div>
+              <div *ngIf="otpVerifiedMessage" class="alert alert-success">
+                <i class="bi bi-check-circle"></i>{{ otpVerifiedMessage }}
+              </div>
+            </div>
+
+            <div class="form-field" *ngIf="otpSent && !otpVerified">
+              <label for="otp">Enter OTP sent to your email</label>
+              <div class="input-wrapper">
+                <i class="bi bi-shield-lock input-icon"></i>
+                <input id="otp" type="text" class="component-input" formControlName="otp" placeholder="Enter OTP"
+                  maxlength="6">
+                <button type="button" class="component-button-primary" (click)="validateOtp()" [disabled]="loadingOtp">
+                  <span *ngIf="loadingOtp" class="loading-spinner"></span>
+                  <i *ngIf="!loadingOtp" class="bi bi-check2"></i>
+                  Validate OTP
+                </button>
+              </div>
+              <div *ngIf="otpError" class="alert alert-danger">
+                <i class="bi bi-exclamation-triangle"></i>{{ otpError }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Password and Address -->
+          <div class="form-step" [class.active]="formStep >= 3">
+            <div class="form-field">
+              <label for="password">Password</label>
+              <div class="input-wrapper">
+                <i class="bi bi-lock input-icon"></i>
+                <input id="password" [type]="showPassword ? 'text' : 'password'" class="component-input"
+                  formControlName="password" placeholder="Create a password">
+                <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+                  <i class="bi" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"></i>
+                </button>
+              </div>
+              <!-- Password Strength Indicator -->
+              <div class="password-strength" *ngIf="signupForm.get('password')?.value">
+                <div class="strength-bar">
+                  <div class="strength-fill" [class]="passwordStrengthClass"></div>
+                </div>
+                <small>{{ passwordStrengthText }}</small>
+              </div>
+              <div
+                *ngIf="signupForm.get('password')?.invalid && (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)"
+                class="form-error">
+                Password is required.
+              </div>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-field">
+                <label for="street">Street</label>
+                <div class="input-wrapper">
+                  <i class="bi bi-geo-alt input-icon"></i>
+                  <input id="street" type="text" class="component-input" formControlName="street"
+                    placeholder="Street address">
+                </div>
+                <div
+                  *ngIf="signupForm.get('street')?.invalid && (signupForm.get('street')?.dirty || signupForm.get('street')?.touched)"
+                  class="form-error">
+                  Street is required.
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="city">City</label>
+                <div class="input-wrapper">
+                  <i class="bi bi-building input-icon"></i>
+                  <input id="city" type="text" class="component-input" formControlName="city" placeholder="City">
+                </div>
+                <div
+                  *ngIf="signupForm.get('city')?.invalid && (signupForm.get('city')?.dirty || signupForm.get('city')?.touched)"
+                  class="form-error">
+                  City is required.
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="state">State</label>
+                <div class="input-wrapper">
+                  <i class="bi bi-flag input-icon"></i>
+                  <input id="state" type="text" class="component-input" formControlName="state" placeholder="State">
+                </div>
+                <div
+                  *ngIf="signupForm.get('state')?.invalid && (signupForm.get('state')?.dirty || signupForm.get('state')?.touched)"
+                  class="form-error">
+                  State is required.
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="zipCode">Zip Code</label>
+                <div class="input-wrapper">
+                  <i class="bi bi-mailbox input-icon"></i>
+                  <input id="zipCode" type="text" class="component-input" formControlName="zipCode"
+                    placeholder="Zip code">
+                </div>
+                <div
+                  *ngIf="signupForm.get('zipCode')?.invalid && (signupForm.get('zipCode')?.dirty || signupForm.get('zipCode')?.touched)"
+                  class="form-error">
+                  Zip Code is required.
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label for="country">Country</label>
+                <div class="input-wrapper">
+                  <i class="bi bi-globe input-icon"></i>
+                  <input id="country" type="text" class="component-input" formControlName="country"
+                    placeholder="Country">
+                </div>
+                <div
+                  *ngIf="signupForm.get('country')?.invalid && (signupForm.get('country')?.dirty || signupForm.get('country')?.touched)"
+                  class="form-error">
+                  Country is required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="component-button-secondary" (click)="previousStep()" *ngIf="formStep > 1">
+              <i class="bi bi-arrow-left"></i>Previous
+            </button>
+            <button type="button" class="component-button-primary" (click)="nextStep()"
+              *ngIf="formStep < 3 && canProceedToNextStep()">
+              Next<i class="bi bi-arrow-right"></i>
+            </button>
+            <button type="submit" class="component-button-primary"
+              [disabled]="loadingRegister || !otpVerified || formStep < 3" *ngIf="formStep === 3">
+              <span *ngIf="loadingRegister" class="loading-spinner"></span>
+              <i *ngIf="!loadingRegister" class="bi bi-person-plus"></i>
+              Register
+            </button>
+          </div>
+        </form>
+
+        <div class="form-footer">
+          <span>Already have an account?</span>
+          <a (click)="goToLogin()" class="form-link">Sign In</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer mt-auto py-3 bg-white border-top shadow-sm rounded-top-4">
+  <div class="container text-center">
+    <span class="text-muted">&copy; {{ currentYear }} DispatchTrack. All rights reserved.</span>
+  </div>
+</footer>

@@ -1,0 +1,68 @@
+server:
+  port: 8087
+
+spring:
+  application:
+    name: request-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/request_db
+    username: postgres
+    password: postgres
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: shivagoudboinapally512@gmail.com
+    password: pptx shdb tfty rwos
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.security: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+jwt:
+  secret: k1O1aaag0GKtfuT9oOJ/CqMqnB9umkLWWYUlU0uWwZs=
+  expiration: 3600000
+
+internal:
+  api:
+    key: GDC@Internal$2025
+

@@ -1,0 +1,147 @@
+// Clean Profile Page - Laptop Optimized
+.profile-container {
+  max-width: 1400px; // Increased width
+  margin: 0 auto;
+  margin-top: 2rem; // Add space from navbar
+  padding: 2rem;
+  min-height: calc(100vh - 2rem); // Adjust for navbar space
+  // background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  
+  .card {
+    border: none;
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    
+    .card-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 1.5rem 2rem;
+      font-weight: 600;
+      font-size: 1.25rem;
+      
+      .btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.3);
+          transform: translateY(-2px);
+        }
+        
+        i {
+          margin-right: 8px;
+        }
+      }
+    }
+    
+    .card-body {
+      padding: 2rem;
+      
+      .form-label {
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .input-group {
+        .input-group-text {
+          background: #f8fafc;
+          border: 2px solid #e2e8f0;
+          border-right: none;
+          color: #64748b;
+          font-size: 1rem;
+        }
+        
+        .form-control, .form-select {
+          border: 2px solid #e2e8f0;
+          border-left: none;
+          border-radius: 0 0.75rem 0.75rem 0;
+          padding: 0.75rem 1rem;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+          background: #f8fafc;
+          
+          &:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: white;
+            
+            & + .input-group-text {
+              border-color: #667eea;
+            }
+          }
+          
+          &[readonly], &:disabled {
+            background: #f1f5f9;
+            color: #64748b;
+            cursor: not-allowed;
+          }
+        }
+      }
+      
+      .btn {
+        border-radius: 0.75rem;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        
+        &.btn-success {
+          background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+          border: none;
+          
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+          }
+        }
+        
+        i {
+          margin-right: 8px;
+        }
+      }
+      
+      .alert {
+        border-radius: 0.75rem;
+        border: none;
+        padding: 1rem 1.5rem;
+        
+        &.alert-danger {
+          background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+          color: white;
+        }
+      }
+      
+      .spinner-border {
+        width: 3rem;
+        height: 3rem;
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 1rem;
+    
+    .card {
+      .card-header {
+        padding: 1rem;
+        font-size: 1.1rem;
+      }
+      
+      .card-body {
+        padding: 1.5rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,380 @@
+@import '../shared-styles.scss';
+
+// Sign-up Specific Styles (Homepage-inspired)
+.component-container {
+  margin-top: 2rem; // Increased gap between navbar and signup form
+}
+
+.signup-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: $spacing-lg;
+}
+
+.signup-content {
+  width: 100%;
+  max-width: 800px; // Increased width from 600px to 800px
+  text-align: center;
+}
+
+.signup-header {
+  margin-bottom: $spacing-lg;
+  
+  h2 {
+    font-family: $font-family;
+    font-size: $font-size-3xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin-bottom: $spacing-xs;
+    
+    i {
+      margin-right: $spacing-xs;
+      color: $primary-color;
+    }
+  }
+  
+  p {
+    color: $text-secondary;
+    font-size: $font-size-base;
+    margin: 0;
+  }
+}
+
+// Form Progress Indicator (Homepage-inspired)
+.form-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $spacing-lg;
+  gap: $spacing-sm;
+  
+  .progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-xs;
+    
+    .timeline-icon {
+      width: 48px;
+      height: 48px;
+      background: $border-color;
+      color: $text-light;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      transition: all $transition-normal;
+      
+      &.step1 {
+        background: $primary-color;
+        color: $text-white;
+      }
+      
+      &.step2 {
+        background: $accent-color;
+        color: $text-white;
+      }
+      
+      &.step3 {
+        background: $success-color;
+        color: $text-white;
+      }
+    }
+    
+    .step-label {
+      font-size: 0.875rem;
+      color: $text-light;
+      font-weight: $font-weight-medium;
+    }
+    
+    &.active {
+      .timeline-icon {
+        box-shadow: $shadow-md;
+      }
+      
+      .step-label {
+        color: $primary-color;
+        font-weight: $font-weight-semibold;
+      }
+    }
+    
+    &.completed {
+      .timeline-icon {
+        background: $success-color;
+        color: $text-white;
+      }
+      
+      .step-label {
+        color: $success-color;
+      }
+    }
+  }
+  
+  .progress-line {
+    width: 60px;
+    height: 2px;
+    background: $border-color;
+    transition: all $transition-normal;
+    
+    &.completed {
+      background: $gradient-timeline;
+    }
+  }
+}
+
+.signup-form {
+  .form-step {
+    display: none;
+    
+    &.active {
+      display: block;
+    }
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-md;
+    margin-bottom: $spacing-lg;
+  }
+  
+  .form-field {
+    margin-bottom: $spacing-md;
+    text-align: left;
+    
+    label {
+      display: block;
+      font-weight: $font-weight-semibold;
+      color: $text-primary;
+      margin-bottom: $spacing-sm;
+      font-size: $font-size-base;
+    }
+  }
+  
+  .input-wrapper {
+    position: relative;
+    
+    .input-icon {
+      position: absolute;
+      left: $spacing-sm;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $text-light;
+      font-size: $font-size-base;
+      z-index: 1;
+    }
+    
+    .component-input {
+      padding-left: 2.5rem;
+    }
+    
+    .input-validation {
+      position: absolute;
+      right: $spacing-sm;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $success-color;
+      font-size: $font-size-base;
+    }
+    
+    .password-toggle {
+      position: absolute;
+      right: $spacing-sm;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: $text-light;
+      cursor: pointer;
+      padding: $spacing-xs;
+      border-radius: $border-radius-sm;
+      transition: all $transition-normal;
+      
+      &:hover {
+        color: $primary-color;
+        background: rgba(37, 99, 235, 0.1);
+      }
+    }
+    
+    .verify-btn {
+      position: absolute;
+      right: $spacing-xs;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: $spacing-xs $spacing-sm;
+      font-size: 0.875rem;
+      min-width: auto;
+    }
+  }
+  
+  .form-error {
+    color: $error-color;
+    font-size: 0.875rem;
+    margin-top: $spacing-xs;
+    text-align: left;
+  }
+  
+  .alert {
+    padding: $spacing-sm;
+    border-radius: $border-radius-sm;
+    margin-top: $spacing-xs;
+    font-size: $font-size-base;
+    
+    &.alert-danger {
+      background: rgba($error-color, 0.1);
+      color: $error-color;
+      border: 1px solid rgba($error-color, 0.2);
+    }
+    
+    &.alert-success {
+      background: rgba($success-color, 0.1);
+      color: $success-color;
+      border: 1px solid rgba($success-color, 0.2);
+    }
+    
+    i {
+      margin-right: $spacing-xs;
+    }
+  }
+  
+  .password-strength {
+    margin-top: $spacing-sm;
+    
+    .strength-bar {
+      width: 100%;
+      height: 4px;
+      background: $border-color;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: $spacing-xs;
+      
+      .strength-fill {
+        height: 100%;
+        transition: all $transition-normal;
+        
+        &.weak {
+          width: 33%;
+          background: $error-color;
+        }
+        
+        &.medium {
+          width: 66%;
+          background: $warning-color;
+        }
+        
+        &.strong {
+          width: 100%;
+          background: $success-color;
+        }
+      }
+    }
+    
+    small {
+      color: $text-light;
+      font-size: 0.75rem;
+    }
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: $spacing-lg;
+    gap: $spacing-md;
+    
+    button {
+      flex: 1;
+      max-width: 200px;
+    }
+  }
+  
+  .form-footer {
+    text-align: center;
+    padding-top: $spacing-md;
+    border-top: 1px solid $border-color;
+    color: $text-secondary;
+    
+    .form-link {
+      color: $primary-color;
+      text-decoration: none;
+      font-weight: $font-weight-medium;
+      cursor: pointer;
+      margin-left: $spacing-xs;
+      transition: color $transition-normal;
+      
+      &:hover {
+        color: $primary-dark;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Responsive Design (from Homepage)
+@media (max-width: 991px) {
+  .signup-form-wrapper {
+    padding: $spacing-md;
+    min-height: 50vh;
+  }
+  
+  .signup-card {
+    max-width: 100%;
+  }
+  
+  .form-progress {
+    .progress-step {
+      .timeline-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+      }
+      
+      .step-label {
+        font-size: 0.75rem;
+      }
+    }
+    
+    .progress-line {
+      width: 40px;
+    }
+  }
+  
+  .signup-form {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .form-actions {
+      flex-direction: column;
+      gap: $spacing-sm;
+      
+      button {
+        max-width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .signup-form-wrapper {
+    padding: $spacing-sm;
+  }
+  
+  .signup-header h2 {
+    font-size: $font-size-2xl;
+  }
+  
+  .form-progress {
+    flex-direction: column;
+    gap: $spacing-sm;
+    
+    .progress-line {
+      width: 2px;
+      height: 20px;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-server.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/goods-transportation-system.iml" filepath="$PROJECT_DIR$/.idea/goods-transportation-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/payments.main.iml" filepath="$PROJECT_DIR$/.idea/modules/payments.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/requests_management.main.iml" filepath="$PROJECT_DIR$/.idea/modules/requests_management.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ride-management.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ride-management.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-registration-and-authentication.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-registration-and-authentication.main.iml" />
+    </modules>
+  </component>
+</project>

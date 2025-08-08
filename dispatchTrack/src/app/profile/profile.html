@@ -1,0 +1,132 @@
+<div class="container-fluid py-4 profile-container">
+  <div class="card shadow-lg">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">
+        <i class="bi bi-person-circle me-2"></i>
+        User Profile
+      </h5>
+      <button class="btn btn-outline-primary btn-sm" (click)="editMode ? onCancelEdit() : onEditProfile()">
+        <i class="bi" [ngClass]="editMode ? 'bi-x-circle-fill' : 'bi-pencil-square-fill'"></i>
+        {{ editMode ? 'Cancel' : 'Edit' }}
+      </button>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="profileForm" (ngSubmit)="onSaveProfile()" *ngIf="profileForm">
+        <div class="row g-4">
+          <div class="col-md-6">
+            <label class="form-label">
+              <i class="bi bi-person-fill me-2"></i>Full Name
+            </label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-person"></i></span>
+              <input type="text" class="form-control" formControlName="name" [readonly]="!editMode" placeholder="Enter your full name">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">
+              <i class="bi bi-envelope-fill me-2"></i>Email Address
+            </label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+              <input type="email" class="form-control" formControlName="email" [readonly]="!editMode" placeholder="Enter your email">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">
+              <i class="bi bi-telephone-fill me-2"></i>Phone Number
+            </label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+              <input type="text" class="form-control" formControlName="phone" [readonly]="!editMode" placeholder="Enter your phone number">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">
+              <i class="bi bi-calendar-fill me-2"></i>Age
+            </label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+              <input type="number" class="form-control" formControlName="age" [readonly]="!editMode" placeholder="Enter your age">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">
+              <i class="bi bi-gender-ambiguous me-2"></i>Gender
+            </label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-gender-ambiguous"></i></span>
+              <select class="form-select" formControlName="gender" [disabled]="!editMode">
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+                <option value="OTHER">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">
+              <i class="bi bi-geo-alt-fill me-2"></i>Street Address
+            </label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+              <input type="text" class="form-control" formControlName="street" [readonly]="!editMode" placeholder="Enter your street address">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">
+              <i class="bi bi-building-fill me-2"></i>City
+            </label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-building"></i></span>
+              <input type="text" class="form-control" formControlName="city" [readonly]="!editMode" placeholder="Enter your city">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">
+              <i class="bi bi-map-fill me-2"></i>State/Province
+            </label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-map"></i></span>
+              <input type="text" class="form-control" formControlName="state" [readonly]="!editMode" placeholder="Enter your state">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">
+              <i class="bi bi-pin-map-fill me-2"></i>Zip Code
+            </label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-pin-map"></i></span>
+              <input type="text" class="form-control" formControlName="zipCode" [readonly]="!editMode" placeholder="Enter zip code">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">
+              <i class="bi bi-globe me-2"></i>Country
+            </label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-globe"></i></span>
+              <input type="text" class="form-control" formControlName="country" [readonly]="!editMode" placeholder="Enter your country">
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 text-end" *ngIf="editMode">
+          <button type="submit" class="btn btn-success btn-lg">
+            <i class="bi bi-check-circle-fill me-2"></i> Save Changes
+          </button>
+        </div>
+      </form>
+
+      <!-- Loading & Error -->
+      <div *ngIf="loading" class="text-center my-4">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2 text-muted">Updating your profile...</p>
+      </div>
+      <div *ngIf="error" class="alert alert-danger mt-3">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        {{ error }}
+      </div>
+    </div>
+  </div>
+</div>

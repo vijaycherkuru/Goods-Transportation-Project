@@ -1,0 +1,510 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+
+$primary: #181A20;
+$secondary: #F7F8FA;
+$accent: #0D6EFD;
+$success: #28a745;
+$danger: #dc3545;
+$info: #17a2b8;
+$light: #f8f9fa;
+$dark: #343a40;
+$textMain: #212529;
+$grayText: #6c757d;
+$ratingStar: #f7c600;
+$purple: #a259ff;
+
+$spacing: 8px;
+$padding: 24px;
+$borderRadius: 18px;
+$boxShadow: 0 2px 16px 0 rgba(16,30,54,0.08);
+
+
+
+.swiftgo-dashboard {
+  font-family: 'Inter', sans-serif;
+  color: $textMain;
+  background: $secondary;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  box-sizing: border-box;
+}
+
+.dashboard-sidebar {
+  width: 80px;
+  min-width: 80px;
+  background: #f3f4f6;
+  border-right: 1.5px solid #e4e6ea;
+  min-height: 100vh;
+}
+.dashboard-main-content {
+  flex: 1 1 auto;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 48px 32px 48px;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background: transparent;
+}
+.dashboard-right-ads {
+  width: 240px;
+  min-width: 180px;
+  background: #f3f4f6;
+  border-left: 1.5px solid #e4e6ea;
+  min-height: 100vh;
+}
+
+@media (max-width: 1400px) {
+  .dashboard-main-content {
+    max-width: 1000px;
+    padding: 32px 16px 24px 16px;
+  }
+  .dashboard-right-ads {
+    width: 120px;
+    min-width: 80px;
+  }
+}
+@media (max-width: 992px) {
+  .dashboard-sidebar, .dashboard-right-ads {
+    display: none;
+  }
+  .dashboard-main-content {
+    max-width: 100vw;
+    padding: 16px 4vw;
+  }
+}
+
+.swiftgo-navbar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: transparent;
+  margin-bottom: 32px;
+}
+.navbar-centered {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+}
+.navbar-inner {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: $boxShadow;
+  min-width: 0;
+  width: 1150px;
+  max-width: 100vw;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  gap: 32px;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  height: 100%;
+}
+
+.notif-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: $primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  transition: background 0.2s;
+  margin-right: 8px;
+  position: relative;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.user-avatar.profile-dropdown-toggle {
+  margin-right: 0;
+}
+
+.user-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: $primary;
+  margin-right: 0;
+}
+.navbar-logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: $primary;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.navbar-mode-switch {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #f3f4f6;
+  border-radius: 16px;
+  padding: 4px 6px;
+  .mode-btn {
+    border: none;
+    background: transparent;
+    color: $primary;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px 22px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    &.active {
+      background: $primary;
+      color: #fff;
+      box-shadow: 0 2px 8px 0 rgba(16,30,54,0.08);
+    }
+  }
+}
+
+// Unified Quick Actions Card and Button Styles
+.quick-actions-card {
+  border-radius: $borderRadius;
+  box-shadow: $boxShadow;
+  background: #fff;
+  margin-bottom: 8px;
+  padding: 0 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-width: 0;
+  height: 150px; // Increased height for more visual space
+  .card-header {
+    font-size: 22px;
+    font-weight: 700;
+    background: none;
+    border: none;
+    padding: 0 0 24px 0;
+    display: flex;
+    align-items: center;
+    height: auto;
+    color: #222;
+    letter-spacing: 0.01em;
+  }
+  .d-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .quick-btn {
+    border: none;
+    border-radius: 22px; // Large pill shape
+    font-weight: 700;
+    font-size: 20px;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    background: #f5f7fa;
+    color: #222;
+    box-shadow: none;
+    cursor: pointer;
+    outline: none;
+    height: 64px;
+    min-width: 200px;
+    width: auto;
+    max-width: 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 32px;
+    gap: 12px;
+    margin: 0 8px;
+    i { font-size: 32px; }
+    &.selected, &:active {
+      background: #2563eb !important;
+      color: #fff !important;
+      box-shadow: 0 2px 8px rgba(59,130,246,0.12);
+    }
+    &.filled {
+      background: $primary;
+      color: #fff;
+      box-shadow: 0 2px 8px 0 rgba(16,30,54,0.08);
+    }
+    &.outlined {
+      background: #fff;
+      color: $primary;
+      border: 1.5px solid #e4e6ea;
+    }
+  }
+}
+
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: min-content min-content 1fr;
+  gap: 18px 24px;
+  margin-top: 0;
+}
+
+.stat-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 24px;
+  height: 100%;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: $borderRadius;
+  box-shadow: $boxShadow;
+  padding: 28px 20px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+  min-height: 110px;
+  .stat-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f3f4f6;
+    &.bg-success-subtle { background: #e6f4ea; }
+    &.bg-primary-subtle { background: #e6f0fa; }
+    &.bg-warning-subtle { background: #fff8e1; }
+    &.bg-purple-subtle { background: #f3e6fa; }
+  }
+  .stat-title {
+    font-size: 15px;
+    color: $grayText;
+    font-weight: 500;
+  }
+  .stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: $primary;
+    &.rating { color: $ratingStar; }
+  }
+}
+
+.quick-actions-card {
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  .card-header {
+    font-size: 20px;
+    font-weight: 600;
+    padding-bottom: 12px;
+  }
+  .d-flex {
+    gap: 32px;
+    margin-top: 8px;
+  }
+  .quick-btn {
+    font-size: 20px;
+    padding: 32px 0;
+    border-radius: 16px;
+    font-weight: 700;
+    i { font-size: 28px; }
+  }
+}
+
+.live-tracking-card {
+  min-height: 340px;
+  .map-placeholder {
+    height: 240px;
+    font-size: 22px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #e6f0fa 0%, #f3e6fa 100%);
+    margin-bottom: 10px;
+  }
+}
+
+.recent-activity-card {
+  min-height: 340px;
+  .activity-list {
+    .activity {
+      font-size: 16px;
+      .amount { font-size: 16px; }
+      .rating { font-size: 18px; }
+    }
+  }
+}
+
+.profile-card {
+  min-height: 110px;
+  .profile-avatar {
+    width: 60px;
+    height: 60px;
+  }
+  .profile-name {
+    font-size: 18px;
+  }
+}
+
+// Layout grid placement
+/* Quick Actions and Stat Cards occupy top rows, Live Tracking spans both columns and more height */
+.quick-actions-card { grid-column: 1 / 2; grid-row: 1 / 2; }
+.stat-cards { grid-column: 2 / 3; grid-row: 1 / 2; }
+.live-tracking-card { grid-column: 1 / 3; grid-row: 2 / 4; }
+.recent-activity-card { grid-column: 2 / 3; grid-row: 2 / 3; }
+.profile-card { grid-column: 2 / 3; grid-row: 3 / 4; margin-top: 32px; }
+
+@media (max-width: 1200px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    gap: 24px;
+  }
+  .stat-cards {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 18px;
+  }
+  .quick-actions-card, .stat-cards, .live-tracking-card, .recent-activity-card, .profile-card {
+    grid-column: 1 / 2 !important;
+    grid-row: auto !important;
+  }
+  .profile-card { margin-top: 0; }
+}
+
+.live-tracking-card {
+  border-radius: $borderRadius;
+  box-shadow: $boxShadow;
+  background: #fff;
+  .card-header {
+    font-size: 18px;
+    font-weight: 600;
+    background: none;
+    border: none;
+    padding: 20px 24px 0 24px;
+  }
+  .map-placeholder {
+    width: 100%;
+    height: 260px;
+    background: linear-gradient(135deg, #e6f0fa 0%, #f3e6fa 100%);
+    border-radius: $borderRadius;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: $grayText;
+    font-size: 20px;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+}
+
+.recent-activity-card {
+  border-radius: $borderRadius;
+  box-shadow: $boxShadow;
+  background: #fff;
+  .card-header {
+    font-size: 16px;
+    font-weight: 600;
+    background: none;
+    border: none;
+    padding: 20px 24px 0 24px;
+  }
+  .activity-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    .activity {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      font-size: 15px;
+      border-bottom: 1px solid $secondary;
+      .dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: $accent;
+        margin-right: 6px;
+      }
+      .amount.text-success { color: $success; }
+      .amount.text-danger { color: $danger; }
+      .rating.text-warning { color: $ratingStar; }
+      .timestamp { color: $grayText; font-size: 12px; margin: 0 8px; }
+    }
+    .activity:last-child { border-bottom: none; }
+  }
+}
+
+.profile-card {
+  border-radius: $borderRadius;
+  box-shadow: $boxShadow;
+  background: #fff;
+  padding: 18px 18px 18px 18px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  .profile-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid $accent;
+  }
+  .profile-info {
+    .profile-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: $primary;
+    }
+    .profile-mode {
+      font-size: 13px;
+      color: $grayText;
+      font-weight: 500;
+    }
+  }
+}
+
+
+
+// Responsive tweaks for Bootstrap grid
+@media (max-width: 1200px) {
+  .swiftgo-navbar { padding: 0 16px; }
+}
+@media (max-width: 992px) {
+  .swiftgo-navbar { flex-direction: column; height: auto; gap: 12px; }
+  .quick-actions-card, .stat-card, .live-tracking-card, .recent-activity-card, .profile-card {
+    border-radius: 14px;
+    padding: 12px;
+  }
+}
+@media (max-width: 768px) {
+  .swiftgo-dashboard { padding: 8px 0; }
+  .quick-actions-card, .stat-card, .live-tracking-card, .recent-activity-card, .profile-card {
+    border-radius: 10px;
+    padding: 8px;
+  }
+  .profile-card { flex-direction: column; align-items: flex-start; }
+}

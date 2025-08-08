@@ -1,0 +1,62 @@
+server:
+  port: 8086  # Unique port for ride-management service
+
+spring:
+  application:
+    name: ride-management  # Service name for Eureka registration
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ride_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/  # Eureka server URL
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true  # Registers with IP address
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics  # Expose basic management endpoints
+
+# Configure Feign clients
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 3000
+        readTimeout: 5000
+        loggerLevel: FULL
+
+# JWT configuration
+jwt:
+  secret: k1O1aaag0GKtfuT9oOJ/CqMqnB9umkLWWYUlU0uWwZs=
+  expiration: 3600000
+
+internal:
+  api:
+    key: GDC@Internal$2025  # Internal API key for service-to-service communication
+

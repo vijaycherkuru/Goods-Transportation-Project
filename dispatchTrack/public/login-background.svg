@@ -1,0 +1,42 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main light blue background -->
+  <rect width="1920" height="1080" fill="#f0f8ff"/>
+  
+  <!-- Top-left corner: large dark blue trapezoid -->
+  <defs>
+    <linearGradient id="topLeftGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0.3" />
+    </linearGradient>
+    
+    <!-- Bottom-left corner: smaller dark blue trapezoid -->
+    <linearGradient id="bottomLeftGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:0.2" />
+    </linearGradient>
+    
+    <!-- Top-right corner: light blue trapezoid -->
+    <linearGradient id="topRightGradient" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#93c5fd;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#dbeafe;stop-opacity:0.3" />
+    </linearGradient>
+    
+    <!-- Bottom-right corner: large dark blue trapezoid -->
+    <linearGradient id="bottomRightGradient" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0.2" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Top-left trapezoid -->
+  <polygon points="0,0 600,0 400,400 0,600" fill="url(#topLeftGradient)"/>
+  
+  <!-- Bottom-left trapezoid -->
+  <polygon points="0,800 300,1000 0,1080" fill="url(#bottomLeftGradient)"/>
+  
+  <!-- Top-right trapezoid -->
+  <polygon points="1200,0 1920,0 1920,300 1400,200" fill="url(#topRightGradient)"/>
+  
+  <!-- Bottom-right trapezoid -->
+  <polygon points="1200,800 1920,600 1920,1080 800,1080" fill="url(#bottomRightGradient)"/>
+</svg> 

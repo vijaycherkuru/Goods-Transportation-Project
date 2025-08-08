@@ -1,0 +1,158 @@
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="pill-search-bar-v2">
+    <div class="bar-field">
+      <i class="bi bi-geo-alt"></i>
+      <input type="text" formControlName="from" placeholder="Leaving from" />
+    </div>
+    <div class="bar-divider"></div>
+    <div class="bar-field">
+      <i class="bi bi-geo-alt-fill"></i>
+      <input type="text" formControlName="to" placeholder="Going to" />
+    </div>
+    <div class="bar-divider"></div>
+    <div class="bar-field">
+      <i class="bi bi-calendar-event"></i>
+      <input type="date" formControlName="date" placeholder="Today" />
+    </div>
+    <div class="bar-divider"></div>
+    <div class="bar-field">
+      <i class="bi bi-box-seam"></i>
+      <select formControlName="luggageSpace">
+        <option value="" disabled selected>Luggage</option>
+        <option *ngFor="let option of luggageSpaceOptions" [value]="option.value">{{ option.label }}</option>
+      </select>
+    </div>
+    <div class="bar-divider"></div>
+    <div class="bar-field">
+      <i class="bi bi-weight"></i>
+      <input type="number" formControlName="goodsWeightInKg" placeholder="Weight (kg)" step="0.1" min="0.1" />
+    </div>
+    <div class="bar-divider"></div>
+    <div class="bar-field">
+      <i class="bi bi-123"></i>
+      <input type="number" formControlName="goodsQuantity" placeholder="Qty" min="1" />
+    </div>
+    <button type="submit" class="pill-search-btn-v2" [disabled]="loading">
+      <span *ngIf="loading" class="loading-spinner"></span>
+      <span *ngIf="!loading">Search</span>
+    </button>
+  </form>
+
+  <!-- Search Results Section - Display just below search bar -->
+  <div *ngIf="searchResults.length" class="search-results-container">
+    <h3 class="results-title">Available Rides</h3>
+    <div class="results-grid">
+      <div *ngFor="let ride of searchResults" class="ride-card" [class.selected]="selectedRide === ride">
+        <div class="card-header">
+          <div class="route-info">
+            <div class="from-location">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span>{{ ride.from }}</span>
+            </div>
+            <div class="route-arrow">
+              <i class="bi bi-arrow-right"></i>
+            </div>
+            <div class="to-location">
+              <i class="bi bi-geo-alt"></i>
+              <span>{{ ride.to }}</span>
+            </div>
+          </div>
+          <div class="date-time">
+            <i class="bi bi-calendar-event"></i>
+            <span>{{ ride.date }}</span>
+            <i class="bi bi-clock ms-2"></i>
+            <span>{{ ride.time }}</span>
+          </div>
+        </div>
+        
+        <div class="card-body">
+          <div class="ride-details">
+            <div class="detail-item">
+              <i class="bi bi-truck"></i>
+              <span class="label">Vehicle:</span>
+              <span class="value">{{ ride.vehicleType }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="bi bi-box-seam"></i>
+              <span class="label">Luggage:</span>
+              <span class="value">{{ ride.luggageSpace }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="bi bi-weight"></i>
+              <span class="label">Available:</span>
+              <span class="value">{{ ride.availableSpaceInKg }} kg</span>
+            </div>
+            <div class="detail-item">
+              <i class="bi bi-cash-coin"></i>
+              <span class="label">Fare:</span>
+              <span class="value fare">₹{{ ride.estimatedFare }}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card-footer">
+          <button class="select-btn" (click)="onSelectRide(ride)">
+            <i class="bi bi-check-circle"></i>
+            Select Ride
+          </button>
+        </div>
+
+        <!-- Goods Form: Show only for selected ride -->
+        <div *ngIf="selectedRide === ride" class="goods-form-card">
+          <form [formGroup]="goodsForm" (ngSubmit)="onBook()">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="bi bi-box-seam"></i>Goods Type
+                </label>
+                <select class="form-select" formControlName="goodsType">
+                  <option value="" disabled selected>Select type</option>
+                  <option *ngFor="let type of goodsTypeOptions" [value]="type">{{ type }}</option>
+                </select>
+                <div *ngIf="goodsForm.controls['goodsType'].touched && goodsForm.controls['goodsType'].invalid" class="error-message">Required</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="bi bi-card-text"></i>Description
+                </label>
+                <input type="text" class="form-control" formControlName="goodsDescription" placeholder="Describe your goods" />
+                <div *ngIf="goodsForm.controls['goodsDescription'].touched && goodsForm.controls['goodsDescription'].invalid" class="error-message">Required</div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">
+                  <i class="bi bi-chat-text"></i>Instructions
+                </label>
+                <input type="text" class="form-control" formControlName="specialInstructions" placeholder="Any special instructions?" />
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="book-btn" [disabled]="bookingLoading || goodsForm.invalid">
+                <span *ngIf="bookingLoading" class="loading-spinner"></span>
+                <i class="bi bi-check-circle"></i>
+                Book Now
+              </button>
+            </div>
+          </form>
+          <div *ngIf="bookingSuccess" class="alert alert-success">
+            <i class="bi bi-check-circle"></i>Booking successful!
+          </div>
+          <div *ngIf="bookingError" class="alert alert-danger">
+            <i class="bi bi-exclamation-triangle"></i>{{ bookingError }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No Results Message -->
+  <div *ngIf="!loading && submitted && !searchResults.length && !searchError" class="no-results">
+    <i class="bi bi-info-circle"></i>
+    <span>No rides found for your search.</span>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="searchError" class="error-message-container">
+    <i class="bi bi-exclamation-triangle"></i>
+    <span>{{ searchError }}</span>
+  </div> 
+
+  

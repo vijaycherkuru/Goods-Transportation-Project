@@ -1,0 +1,111 @@
+# Persistent Volume Claim for PostgreSQL
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+# PostgreSQL Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: postgres
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: Mjfqh@123
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-storage
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+---
+# PostgreSQL Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+spec:
+  type: ClusterIP
+  selector:
+    app: postgres
+  ports:
+    - port: 5432
+      targetPort: 5432
+---
+# Spring Boot App Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ride-management-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ride-management
+  template:
+    metadata:
+      labels:
+        app: ride-management
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: ride-management-container
+          image: sathwik169/ride-management:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres-service:5432/postgres
+            - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: Mjfqh@123
+            - name: SPRING_JPA_SHOW_SQL
+              value: "true"
+            - name: SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL
+              value: "true"
+            - name: LOGGING_LEVEL_ORG_HIBERNATE_SQL
+              value: DEBUG
+            - name: LOGGING_LEVEL_ORG_HIBERNATE_TYPE_DESCRIPTOR_SQL_BASICTBINDER
+              value: TRACE
+---
+# Spring Boot App Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: ride-management-service
+spec:
+  type: NodePort
+  selector:
+    app: ride-management
+  ports:
+    - port: 9090
+      targetPort: 8080
+      nodePort: 30087

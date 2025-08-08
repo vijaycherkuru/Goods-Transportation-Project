@@ -1,0 +1,196 @@
+<div class="tracking-container">
+  <!-- Header Section -->
+  
+
+  <!-- Main Tracking Content -->
+  <div class="tracking-content">
+    <div class="row g-4">
+      <!-- Map Section -->
+      <div class="col-lg-8">
+        <div class="tracking-card map-card">
+          <div class="card-header">
+            <h3 class="text-heading mb-0">
+              <i class="bi bi-geo-alt-fill text-accent me-2"></i>
+              Live Location
+            </h3>
+            <div class="map-controls">
+              <button class="btn btn-sm btn-outline-primary" (click)="refreshLocation()">
+                <i class="bi bi-arrow-clockwise me-1"></i>
+                Refresh
+              </button>
+              <button class="btn btn-sm btn-outline-secondary" (click)="toggleFullscreen()">
+                <i class="bi bi-arrows-fullscreen me-1"></i>
+                Fullscreen
+              </button>
+            </div>
+          </div>
+          <div class="map-container" #mapContainer>
+            <!-- Map will be rendered here -->
+            <div class="map-placeholder" *ngIf="!mapLoaded">
+              <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p class="text-body-small text-secondary mt-3">Loading map...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tracking Details -->
+      <div class="col-lg-4">
+        <div class="tracking-details">
+          <!-- Current Delivery -->
+          <div class="tracking-card delivery-card" *ngIf="currentDelivery">
+            <div class="card-header">
+              <h4 class="text-subheading mb-0">Current Delivery</h4>
+              <span class="status-badge" [ngClass]="'status-' + currentDelivery.status">
+                {{ currentDelivery.status | titlecase }}
+              </span>
+            </div>
+            
+            <div class="delivery-info">
+              <div class="info-item">
+                <i class="bi bi-truck text-primary"></i>
+                <div class="info-content">
+                  <span class="info-label">Driver</span>
+                  <span class="info-value">{{ currentDelivery.driverName }}</span>
+                </div>
+              </div>
+              
+              <div class="info-item">
+                <i class="bi bi-telephone text-primary"></i>
+                <div class="info-content">
+                  <span class="info-label">Contact</span>
+                  <span class="info-value">{{ currentDelivery.driverPhone }}</span>
+                </div>
+              </div>
+              
+              <div class="info-item">
+                <i class="bi bi-clock text-primary"></i>
+                <div class="info-content">
+                  <span class="info-label">ETA</span>
+                  <span class="info-value">{{ currentDelivery.eta | date:'shortTime' }}</span>
+                </div>
+              </div>
+              
+              <div class="info-item">
+                <i class="bi bi-speedometer2 text-primary"></i>
+                <div class="info-content">
+                  <span class="info-label">Speed</span>
+                  <span class="info-value">{{ currentDelivery.speed }} km/h</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- No Current Delivery -->
+          <div class="tracking-card delivery-card" *ngIf="!currentDelivery">
+            <div class="card-header">
+              <h4 class="text-subheading mb-0">Current Delivery</h4>
+            </div>
+            
+            <div class="delivery-info">
+              <div class="info-item">
+                <i class="bi bi-info-circle text-secondary"></i>
+                <div class="info-content">
+                  <span class="info-label">Status</span>
+                  <span class="info-value">No active delivery</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Route Progress -->
+          <div class="tracking-card progress-card">
+            <div class="card-header">
+              <h4 class="text-subheading mb-0">Route Progress</h4>
+            </div>
+            
+            <div class="route-progress" *ngIf="routeSteps.length > 0">
+              <div class="progress-step" [ngClass]="{'completed': step.completed, 'active': step.active}" 
+                   *ngFor="let step of routeSteps; let i = index">
+                <div class="step-icon">
+                  <i [class]="step.icon"></i>
+                </div>
+                <div class="step-content">
+                  <span class="step-title">{{ step.title }}</span>
+                  <span class="step-time" *ngIf="step.time">{{ step.time | date:'shortTime' }}</span>
+                </div>
+                <div class="step-connector" *ngIf="i < routeSteps.length - 1"></div>
+              </div>
+            </div>
+            
+            <div class="route-progress" *ngIf="routeSteps.length === 0">
+              <div class="progress-step">
+                <div class="step-icon">
+                  <i class="bi bi-info-circle"></i>
+                </div>
+                <div class="step-content">
+                  <span class="step-title">No route progress available</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delivery History -->
+          <div class="tracking-card history-card">
+            <div class="card-header">
+              <h4 class="text-subheading mb-0">Recent Deliveries</h4>
+            </div>
+            
+            <div class="delivery-history" *ngIf="recentDeliveries.length > 0">
+              <div class="history-item" *ngFor="let delivery of recentDeliveries">
+                <div class="history-icon">
+                  <i class="bi bi-box-seam"></i>
+                </div>
+                <div class="history-content">
+                  <div class="history-header">
+                    <span class="history-title">{{ delivery.title }}</span>
+                    <span class="status-badge" [ngClass]="'status-' + delivery.status">
+                      {{ delivery.status }}
+                    </span>
+                  </div>
+                  <div class="history-details">
+                    <span class="history-date">{{ delivery.date | date:'MMM dd' }}</span>
+                    <span class="history-route">{{ delivery.from }} → {{ delivery.to }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="delivery-history" *ngIf="recentDeliveries.length === 0">
+              <div class="history-item">
+                <div class="history-icon">
+                  <i class="bi bi-info-circle"></i>
+                </div>
+                <div class="history-content">
+                  <div class="history-header">
+                    <span class="history-title">No recent deliveries</span>
+                  </div>
+                  <div class="history-details">
+                    <span class="history-route">No delivery history available</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Action Bar -->
+  <div class="tracking-actions">
+    <div class="action-buttons">
+      <button class="btn btn-primary" (click)="contactDriver()">
+        <i class="bi bi-telephone me-2"></i>
+        Contact Driver
+      </button>
+      <button class="btn btn-outline-primary" (click)="shareLocation()">
+        <i class="bi bi-share me-2"></i>
+        Share Location
+      </button>
+      
+    </div>
+  </div>
+</div> 

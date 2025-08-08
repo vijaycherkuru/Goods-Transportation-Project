@@ -1,0 +1,119 @@
+<div class="container mt-5" style="margin-top: 4rem !important;">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0">
+      <i class="bi bi-box-seam me-2 text-primary"></i>
+      Your Orders
+    </h4>
+    <div class="d-flex gap-2">
+      <label for="statusFilter" class="me-2 align-self-center">Filter:</label>
+      <select id="statusFilter" class="form-select d-inline-block w-auto" [(ngModel)]="selectedStatus" (change)="onFilterChange(selectedStatus)">
+        <option *ngFor="let opt of statusOptions" [value]="opt.value">{{ opt.label }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="d-flex justify-content-center align-items-center" style="gap: 1rem;">
+      <div class="spinner-grow text-primary" style="width: 2.5rem; height: 2.5rem;" role="status"></div>
+      <div class="spinner-grow text-success" style="width: 2.5rem; height: 2.5rem;" role="status"></div>
+      <div class="spinner-grow text-danger" style="width: 2.5rem; height: 2.5rem;" role="status"></div>
+      <div class="spinner-grow text-warning" style="width: 2.5rem; height: 2.5rem;" role="status"></div>
+      <div class="spinner-grow text-info" style="width: 2.5rem; height: 2.5rem;" role="status"></div>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger text-center">
+    <i class="bi bi-exclamation-triangle me-2"></i>
+    {{ error }}
+  </div>
+
+  <ng-container *ngIf="!loading && !error">
+    <div *ngIf="filteredOrders.length === 0" class="text-center text-muted mt-5">
+      <i class="bi bi-box-seam fs-1 text-muted mb-3 d-block"></i>
+      <h5>No orders found</h5>
+      <p>You haven't placed any orders yet. Start by creating your first order!</p>
+      <button class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i>
+        Create Your First Order
+      </button>
+    </div>
+
+    <div class="orders-list-container">
+      <div *ngFor="let order of filteredOrders" class="order-item">
+        <div class="compact-order-card">
+          <div class="order-header">
+            <div class="order-title">
+              <i class="bi bi-box-seam text-primary"></i>
+              <span class="goods-type">{{ order.goodsType | titlecase }}</span>
+              <span class="order-id">#{{ order.id?.substring(0, 8) || 'N/A' }}</span>
+            </div>
+            <span class="status-badge" [ngClass]="{
+              'status-pending': order.status === 'PENDING',
+              'status-accepted': order.status === 'ACCEPTED',
+              'status-rejected': order.status === 'REJECTED',
+              'status-intransit': order.status === 'INTRANSIT',
+              'status-delivered': order.status === 'DELIVERED'
+            }">{{ order.status | titlecase }}</span>
+          </div>
+          
+          <div class="order-content">
+            <div class="route-section">
+              <div class="route-item">
+                <i class="bi bi-geo-alt-fill text-success"></i>
+                <span>{{ order.from }}</span>
+              </div>
+              <div class="route-arrow">
+                <i class="bi bi-arrow-right"></i>
+              </div>
+              <div class="route-item">
+                <i class="bi bi-geo-alt-fill text-danger"></i>
+                <span>{{ order.to }}</span>
+              </div>
+            </div>
+            
+            <div class="order-details">
+              <div class="detail-item">
+                <i class="bi bi-calendar-event text-warning"></i>
+                <span>{{ order.deliveryDate | date:'mediumDate' }}</span>
+              </div>
+              <div class="detail-item">
+                <i class="bi bi-currency-rupee text-success"></i>
+                <span>{{ order.fare }}</span>
+              </div>
+              <div class="detail-item">
+                <i class="bi bi-weight text-info"></i>
+                <span>{{ order.weight }} kg</span>
+              </div>
+              <div class="detail-item">
+                <i class="bi bi-stack text-info"></i>
+                <span>{{ order.goodsQuantity }}</span>
+              </div>
+            </div>
+            
+            <div class="order-description" *ngIf="order.goodsDescription">
+              <i class="bi bi-card-text text-muted"></i>
+              <span>{{ order.goodsDescription }}</span>
+            </div>
+            
+            <div class="special-instructions" *ngIf="order.specialInstructions">
+              <i class="bi bi-exclamation-circle text-danger"></i>
+              <span>{{ order.specialInstructions }}</span>
+            </div>
+          </div>
+          
+          <div class="order-actions">
+            <button *ngIf="order.status === 'ACCEPTED'" class="action-btn pay-btn" (click)="pay(order)" [disabled]="paymentLoading === order.id">
+              <span *ngIf="paymentLoading === order.id" class="spinner-border spinner-border-sm me-1"></span>
+              <i *ngIf="paymentLoading !== order.id" class="bi bi-credit-card me-1"></i>
+              {{ paymentLoading === order.id ? 'Processing...' : 'Pay Now' }}
+            </button>
+            <button *ngIf="order.status !== 'ACCEPTED'" class="action-btn status-btn" disabled>
+              <i class="bi bi-clock me-1"></i>
+              {{ order.status | titlecase }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div> 
